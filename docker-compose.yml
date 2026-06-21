@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: gruapim-postgres
+    environment:
+      POSTGRES_USER: gruapim_user
+      POSTGRES_PASSWORD: gruapim_password
+      POSTGRES_DB: journaling_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
