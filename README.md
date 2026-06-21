@@ -1,12 +1,12 @@
-# Projeto-GRUAPIM
+# 📓 Projeto-GRUAPIM
 
-## Projeto da disciplina "Desenvolvimento para Dispositivos Móveis" (GRUDSMV) - IFSP Guarulhos
+#### Projeto da disciplina "Desenvolvimento para Dispositivos Móveis" (GRUDSMV) - IFSP Guarulhos
 
-#  Tema 7 – Aplicação para Journaling
+# 📖 Tema 7 – Aplicação para Journaling
 
-## HISTÓRIA DE USUÁRIO
+## 👥 HISTÓRIA DE USUÁRIO
 
-### ÉPICO 1: Calendário Pessoal:
+### 📅 ÉPICO 1: Calendário Pessoal:
 
 Disponibilizar um calendário onde os usuários possam gerenciar suas atividades e inserir tarefas.
 
@@ -19,7 +19,7 @@ Disponibilizar um calendário onde os usuários possam gerenciar suas atividades
   - O sistema deve disponibilizar visualizações por dia, semana e mês.
   - Eventos passados e futuros devem ser exibidos de forma clara e visualmente distinguíveis no calendário.
 
-### ÉPICO 2: Gestão de Projetos
+### 🗂️ ÉPICO 2: Gestão de Projetos
 
 Permitir a criação e o gerenciamento de projetos pessoais, com atribuição de tarefas e prazos.
 
@@ -32,7 +32,7 @@ Permitir a criação e o gerenciamento de projetos pessoais, com atribuição de
   - O usuário deve poder criar tarefas e vinculá-las diretamente a um projeto existente.
   - A tela do projeto deve exibir o progresso com base na conclusão das tarefas associadas a ele.
 
-### ÉPICO 3: Todo Lists e Tarefas
+### ✅ ÉPICO 3: Todo Lists e Tarefas
 
 Criação de listas de tarefas para dividir atividades em etapas gerenciáveis e permitir priorização.
 
@@ -45,7 +45,7 @@ Criação de listas de tarefas para dividir atividades em etapas gerenciáveis e
   - O usuário deve poder atribuir um nível de prioridade (ex: Alta, Média, Baixa) a cada tarefa.
   - O sistema deve permitir a criação e atribuição de categorias ou tags customizadas às tarefas.
 
-### ÉPICO 4: Anotações e Diário Digital
+### 📝 ÉPICO 4: Anotações e Diário Digital
 
 Sistema para registro de pensamentos e reflexões integrados a datas.
 ​
@@ -57,7 +57,7 @@ Sistema para registro de pensamentos e reflexões integrados a datas.
   - O sistema deve fornecer um editor de texto para criação de notas e entradas de diário.
   - Toda anotação deve ser associada a uma data, permitindo ao usuário escolher a data atual ou uma data retroativa/futura. O usuário deve poder consultar o histórico de anotações organizadas cronologicamente.
 
-### ÉPICO 5: Visualização Integrada
+### 🧩 ÉPICO 5: Visualização Integrada
 
 Visão unificada de todas as informações da plataforma no calendário.
 
@@ -69,7 +69,7 @@ Visão unificada de todas as informações da plataforma no calendário.
   - A interface do calendário deve exibir ícones ou marcadores distintos para tarefas, eventos, prazos de projetos e anotações de diário no mesmo painel.
   - ​Ao clicar em um item integrado no calendário, o sistema deve abrir um modal ou direcionar para a tela de detalhes correspondente.
 
-### ÉPICO 6: Sincronização e Acesso Móvel
+### 📱 ÉPICO 6: Sincronização e Acesso Móvel
 
 Garantir o acesso contínuo por meio de sincronização de dados e plataformas móveis.
 
@@ -81,7 +81,7 @@ Garantir o acesso contínuo por meio de sincronização de dados e plataformas m
   - Quaisquer alterações (criação, edição, exclusão) feitas via navegador web devem refletir instantaneamente no aplicativo móvel, e vice-versa.
   - O aplicativo deve manter a usabilidade completa em telas de smartphones e tablets.
 
-## ÉPICO 7: Personalização, Flexibilidade e Feedback
+### ⚙️ ÉPICO 7: Personalização, Flexibilidade e Feedback
 
 Permitir a personalização das configurações e fornecer feedback para melhoria de produtividade.
 
@@ -95,9 +95,63 @@ Permitir a personalização das configurações e fornecer feedback para melhori
  
 ---
 
-##​ PLANEJAMENTO DE IMPLEMENTAÇÃO (Roadmap de Sprints)
+## 🚀 Como Executar o Projeto (Ambiente de Desenvolvimento)
+
+Para facilitar o desenvolvimento e garantir a padronização do ambiente para toda a equipe, a infraestrutura deste projeto foi 100% containerizada utilizando Docker.
+
+### Pré-requisitos
+
+- [Docker](https://www.docker.com/) e Docker Compose instalados.
+- [Git](https://git-scm.com/) para clonar o repositório.
+
+### Passo a Passo
+
+### 1. Clone o repositório:
+
+  ```bash
+  git clone [https://github.com/lucas-oliveirah17/Projeto-GRUAPIM.git](https://github.com/lucas-oliveirah17/Projeto-GRUAPIM.git)
+  cd Projeto-GRUAPIM
+  ```
+
+### 2. Inicie os containers:
+
+Na raiz do projeto (onde está o arquivo docker-compose.yml), execute o comando abaixo. A flag --build garante que as imagens do backend e frontend sejam construídas com o código mais recente.
+
+  ```bash
+  docker compose up -d --build
+  ```
+
+### 3. Acesse a aplicação:
+
+Com os containers em execução, os serviços estarão disponíveis nas seguintes portas:
+
+- **Frontend (React + Vite):** http://localhost:5173 (Hot Reload ativo via mapeamento de volume)
+
+- **Backend (API Spring Boot):** http://localhost:8080
+
+- **Banco de Dados (PostgreSQL):** http://localhost:5433 (Verifique as credenciais no docker-compose.yml)
+
+### Como parar a aplicação
+
+Para interromper a execução e remover os containers, execute na raiz do projeto:
+
+  ```bash
+  docker compose down
+  ```
+
+---
+
+## ​🗺️ PLANEJAMENTO DE IMPLEMENTAÇÃO (Roadmap de Sprints)
 
 O desenvolvimento do MVP será estruturado em um ciclo de 2 Sprints (com duração de uma semana cada), visando entregar valor contínuo e progressivo, começando pela fundação do sistema até atingir a integração e mobilidade total. O trabalho ocorrerá em paralelo, com dois desenvolvedores atuando simultaneamente.
+
+| Sprint | Prioridade | Atuando | Épico(s) Abordado(s) | História(s) de Usuário | Foco da Entrega no MVP |
+| :---: | :---: | :---: | :--- | :---: | :--- |
+| **Sprint 1** | Alta | Lucas | Todo Lists e Tarefas <br><br> Calendário Pessoal (Início) | US03 <br><br> US01 (Estrutura Básica) | Infraestrutura inicial, garantia de privacidade de dados (RNF2), criação de usuário e o motor básico de criação, priorização e categorização de tarefas. |
+| **Sprint 1** | Alta | Daniel | Calendário Pessoal (Fim) <br><br> Anotações e Diário Digital | US01 (Visões) <br><br> US04 | Visualizações completas do calendário (diária/semanal/mensal) e implementação do editor de texto para o diário digital atrelado a datas |
+| **Sprint 2** | Média | Lucas | Gestão de Projetos <br><br> Visualização Integrada | US02 <br><br> US05 | Agrupamento de tarefas em projetos com deadlines e o motor visual que renderiza todas as entidades (tarefas, projetos, diário) na visualização unificada do calendário. |
+| **Sprint 2** | Baixa | Daniel | Personalização e Flexibilidade <br><br> Sincronização e Acesso Móvel | US07 <br><br> US06 | Finalização da interface responsiva e mobile (RNF1), painéis de feedback automatizado de produtividade e preferências visuais de personalização do usuário. |
+
 
 ---
 

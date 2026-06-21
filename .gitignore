@@ -31,5 +31,10 @@ bin/
 .DS_Store
 Thumbs.db
 
+# Node / Frontend
+node_modules/
+dist/
+dist-ssr/
+
 # Outros
 HELP.md
