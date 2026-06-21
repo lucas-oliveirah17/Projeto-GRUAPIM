@@ -77,6 +77,19 @@ public class Tarefa {
         this.prioridade = novaPrioridade;
     }
 	
+	public void atualizar(String titulo, String descricao, Prioridade prioridade) {
+        if (titulo == null || titulo.trim().isEmpty()) {
+            throw new CampoObrigatorioException("Título");
+        }
+        if (prioridade == null) {
+            throw new CampoObrigatorioException("Prioridade");
+        }
+        
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.prioridade = prioridade;
+    }
+	
 	public void adicionarCategoria(Categoria categoria) {
         if (categoria == null) {
             throw new CampoObrigatorioException("Categoria");
@@ -89,11 +102,18 @@ public class Tarefa {
             this.categorias.remove(categoria);
         }
     }
-	
+    
+    public void sincronizarCategorias(Set<Categoria> categoriasAtualizadas) {
+        this.categorias.clear();
+        if (categoriasAtualizadas != null) {
+            this.categorias.addAll(categoriasAtualizadas);
+        }
+    }
+    
 	public Long getId() { return id; }
     public String getTitulo() { return titulo; }
     public String getDescricao() { return descricao; }
     public Prioridade getPrioridade() { return prioridade; }
     public StatusTarefa getStatus() { return status; }
-    public Set<Categoria> getCategoria() { return Set.copyOf(categorias); }
+    public Set<Categoria> getCategorias() { return Set.copyOf(categorias); }
 }
