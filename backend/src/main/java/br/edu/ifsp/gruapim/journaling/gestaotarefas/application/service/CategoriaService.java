@@ -7,17 +7,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.application.dto.CategoriaRequestDTO;
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.application.dto.CategoriaResponseDTO;
+import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.exception.CategoriaEmUsoException;
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.exception.RecursoNaoEncontradoException;
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.exception.RegistroDuplicadoException;
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.model.Categoria;
+import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.model.Tarefa;
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.repository.CategoriaRepository;
+import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.repository.TarefaRepository;
 
 @Service
 public class CategoriaService {
 	private final CategoriaRepository categoriaRepository;
+	private final TarefaRepository tarefaRepository;
 	
-	public CategoriaService(CategoriaRepository categoriaRepository) {
+	public CategoriaService(CategoriaRepository categoriaRepository, TarefaRepository tarefaRepository) {
         this.categoriaRepository = categoriaRepository;
+        this.tarefaRepository = tarefaRepository;
     }
 	
 	@Transactional
@@ -44,13 +49,24 @@ public class CategoriaService {
     }
 	
 	@Transactional
-    public void excluir(Long id) {
-        if (!categoriaRepository.existsById(id)) {
-            throw new RecursoNaoEncontradoException("Categoria");
+    public void excluir(Long id, boolean force) {
+        Categoria categoria = categoriaRepository.findById(id)
+            .orElseThrow(() -> new RecursoNaoEncontradoException("Categoria"));
+
+        boolean emUso = tarefaRepository.existsByCategorias_Id(id);
+
+        if (emUso && !force) {
+            throw new CategoriaEmUsoException(categoria.getNome());
         }
-        // Nota: O JPA vai tentar deletar. Se a categoria estiver vinculada a uma Tarefa, 
-        // vai estourar um erro de integridade do banco (DataIntegrityViolationException).
-        // Trataremos isso globalmente na camada de API (ControllerAdvice) depois!
-        categoriaRepository.deleteById(id);
+
+        if (emUso && force) {
+            List<Tarefa> tarefas = tarefaRepository.findByCategorias_Id(id);
+            for (Tarefa tarefa : tarefas) {
+                tarefa.removerCategoria(categoria);
+                tarefaRepository.save(tarefa);
+            }
+        }
+
+        categoriaRepository.delete(categoria);
     }
 }

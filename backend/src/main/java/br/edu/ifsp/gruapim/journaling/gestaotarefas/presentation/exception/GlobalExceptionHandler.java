@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.exception.CategoriaEmUsoException;
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.exception.DomainException;
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.exception.RecursoNaoEncontradoException;
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.exception.RegistroDuplicadoException;
@@ -43,6 +44,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErroResponse> handleErroGenerico(Exception ex, HttpServletRequest request) {
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Erro interno no servidor", "Ocorreu um erro inesperado. Tente novamente mais tarde.", request, null);
+    }
+    
+    @ExceptionHandler(CategoriaEmUsoException.class)
+    public ResponseEntity<ErroResponse> handleCategoriaEmUso(CategoriaEmUsoException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.CONFLICT, "Categoria em uso", ex.getMessage(), request, null);
     }
 
     private ResponseEntity<ErroResponse> buildResponse(HttpStatus status, String erro, String mensagem, HttpServletRequest request, List<ErroResponse.CampoErro> detalhes) {

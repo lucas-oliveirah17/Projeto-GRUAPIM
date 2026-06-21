@@ -3,11 +3,11 @@ services:
     image: postgres:16-alpine
     container_name: gruapim-postgres
     environment:
-      POSTGRES_USER: gruapim_user
-      POSTGRES_PASSWORD: gruapim_password
-      POSTGRES_DB: journaling_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5433:5432"
+      - "${DB_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -15,13 +15,13 @@ services:
     build: ./backend
     container_name: gruapim-backend
     ports:
-      - "8080:8080"
+      - "${BACKEND_PORT}:8080"
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/journaling_db
-      SPRING_DATASOURCE_USERNAME: gruapim_user
-      SPRING_DATASOURCE_PASSWORD: gruapim_password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
 
@@ -29,14 +29,12 @@ services:
     build: ./frontend
     container_name: gruapim-frontend
     ports:
-      - "5173:5173"
+      - "${FRONTEND_PORT}:5173"
     depends_on:
       - backend
     volumes:
-      # Sincroniza os arquivos locais com o container para Hot Reload
-      - ./frontend:/app
-      # Protege os node_modules internos do container
-      - /app/node_modules
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
 
 volumes:
   postgres_data:

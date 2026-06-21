@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.application.dto.CategoriaRequestDTO;
@@ -38,8 +39,10 @@ public class CategoriaController {
     }
 	
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        categoriaService.excluir(id);
+    public ResponseEntity<Void> excluir(
+            @PathVariable Long id, 
+            @RequestParam(defaultValue = "false") boolean force) {
+        categoriaService.excluir(id, force);
         return ResponseEntity.noContent().build();
     }
 
