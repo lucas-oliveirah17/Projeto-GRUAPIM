@@ -15,6 +15,7 @@ export default function TaskForm({ tarefaEmEdicao, categoriasDisponiveis, onSubm
   const [titulo, setTitulo] = useState(tarefaEmEdicao?.titulo || '');
   const [descricao, setDescricao] = useState(tarefaEmEdicao?.descricao || '');
   const [prioridade, setPrioridade] = useState<'ALTA' | 'MEDIA' | 'BAIXA'>(tarefaEmEdicao?.prioridade || 'MEDIA');
+  const [dataLimite, setDataLimite] = useState(tarefaEmEdicao?.dataLimite || '');
   
   const [categoriaIds, setCategoriaIds] = useState<number[]>(
     tarefaEmEdicao?.categorias.map(c => c.id) || []
@@ -29,7 +30,7 @@ export default function TaskForm({ tarefaEmEdicao, categoriasDisponiveis, onSubm
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!titulo.trim()) return;
-    onSubmit({ titulo, descricao, prioridade, categoriaIds });
+    onSubmit({ titulo, descricao, prioridade, categoriaIds, dataLimite: dataLimite || undefined });
   };
 
   return (
@@ -64,6 +65,16 @@ export default function TaskForm({ tarefaEmEdicao, categoriasDisponiveis, onSubm
           </option>
         ))}
       </select>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <label style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#475569' }}>Data Limite (Calendário):</label>
+        <input 
+          type="date" 
+          value={dataLimite}
+          onChange={(e) => setDataLimite(e.target.value)}
+          className="task-input"
+        />
+      </div>
 
       {categoriasDisponiveis.length > 0 && (
         <div className="category-manager">

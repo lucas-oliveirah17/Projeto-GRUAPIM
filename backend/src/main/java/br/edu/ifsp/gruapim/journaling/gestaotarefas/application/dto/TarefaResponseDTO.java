@@ -1,5 +1,6 @@
 package br.edu.ifsp.gruapim.journaling.gestaotarefas.application.dto;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,8 @@ public record TarefaResponseDTO(
     String descricao,
     Prioridade prioridade,
     StatusTarefa status,
-    Set<CategoriaResponseDTO> categorias
+    Set<CategoriaResponseDTO> categorias,
+    LocalDate dataLimite
 
 ) {
 	public static TarefaResponseDTO fromEntity(Tarefa tarefa) {
@@ -25,7 +27,8 @@ public record TarefaResponseDTO(
             tarefa.getStatus(),
             tarefa.getCategorias().stream()
                   .map(CategoriaResponseDTO::fromEntity)
-                  .collect(Collectors.toSet())
+                  .collect(Collectors.toSet()),
+            tarefa.getDataLimite()
         );
     }
 }

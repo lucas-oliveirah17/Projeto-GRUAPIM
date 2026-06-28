@@ -26,7 +26,7 @@ public class TarefaService {
 
     @Transactional
     public TarefaResponseDTO criar(TarefaRequestDTO dto) {
-        Tarefa novaTarefa = new Tarefa(dto.titulo(), dto.descricao(), dto.prioridade());
+        Tarefa novaTarefa = new Tarefa(dto.titulo(), dto.descricao(), dto.prioridade(), dto.dataLimite());
 
         if (dto.categoriaIds() != null && !dto.categoriaIds().isEmpty()) {
             List<Categoria> categoriasEncontradas = categoriaRepository.findAllById(dto.categoriaIds());
@@ -66,7 +66,7 @@ public class TarefaService {
     public TarefaResponseDTO editar(Long id, TarefaRequestDTO dto) {
         Tarefa tarefa = buscarTarefa(id);
         
-        tarefa.atualizar(dto.titulo(), dto.descricao(), dto.prioridade());
+        tarefa.atualizar(dto.titulo(), dto.descricao(), dto.prioridade(), dto.dataLimite());
         
         if (dto.categoriaIds() != null && !dto.categoriaIds().isEmpty()) {
             List<Categoria> categoriasEncontradas = categoriaRepository.findAllById(dto.categoriaIds());

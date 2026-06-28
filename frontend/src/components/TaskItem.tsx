@@ -28,6 +28,12 @@ export default function TaskItem({ tarefa, onConcluir, onEditar, onExcluir }: Ta
           </div>
         )}
         
+        {tarefa.dataLimite && (
+          <div style={{ marginTop: '8px', fontSize: '0.8rem', color: '#64748b', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <span>📅</span> Prazo: {new Date(tarefa.dataLimite + 'T00:00:00').toLocaleDateString('pt-BR')}
+          </div>
+        )}
+        
         {tarefa.descricao && <p style={{ margin: '8px 0 0 0', fontSize: '0.9em', color: '#555' }}>{tarefa.descricao}</p>}
       </div>
       

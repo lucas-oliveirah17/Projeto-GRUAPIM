@@ -7,6 +7,7 @@ export interface Tarefa {
   prioridade: 'ALTA' | 'MEDIA' | 'BAIXA';
   status: 'PENDENTE' | 'CONCLUIDA';
   categorias: Categoria[];
+  dataLimite?: string; // YYYY-MM-DD
 }
 
 export interface TarefaRequest {
@@ -14,4 +15,5 @@ export interface TarefaRequest {
   descricao: string;
   prioridade: 'ALTA' | 'MEDIA' | 'BAIXA';
   categoriaIds: number[];
+  dataLimite?: string; // YYYY-MM-DD
 }

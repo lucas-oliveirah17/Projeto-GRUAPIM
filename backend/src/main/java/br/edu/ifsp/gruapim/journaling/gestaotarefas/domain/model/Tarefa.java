@@ -1,5 +1,6 @@
 package br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.model;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +38,9 @@ public class Tarefa {
 	@Enumerated(EnumType.STRING)
     @Column(nullable = false)
 	private StatusTarefa status;
+
+	@Column
+	private LocalDate dataLimite;
 	
 	@ManyToMany
     @JoinTable(
@@ -50,6 +54,10 @@ public class Tarefa {
 	}
 	
 	public Tarefa(String titulo, String descricao, Prioridade prioridade) {
+		this(titulo, descricao, prioridade, null);
+	}
+
+	public Tarefa(String titulo, String descricao, Prioridade prioridade, LocalDate dataLimite) {
 		if (titulo == null || titulo.trim().isEmpty()) {
 			throw new CampoObrigatorioException("Título");
         }
@@ -61,6 +69,7 @@ public class Tarefa {
         this.descricao = descricao;
         this.prioridade = prioridade;
         this.status = StatusTarefa.PENDENTE;
+		this.dataLimite = dataLimite;
 	}
 	
 	public void concluir() {
@@ -68,7 +77,7 @@ public class Tarefa {
             throw new TarefaJaConcluidaException();
         }
         this.status = StatusTarefa.CONCLUIDA;
-    }
+	}
 	
 	public void alterarPrioridade(Prioridade novaPrioridade) {
         if (novaPrioridade == null) {
@@ -78,6 +87,10 @@ public class Tarefa {
     }
 	
 	public void atualizar(String titulo, String descricao, Prioridade prioridade) {
+		this.atualizar(titulo, descricao, prioridade, null);
+	}
+
+	public void atualizar(String titulo, String descricao, Prioridade prioridade, LocalDate dataLimite) {
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new CampoObrigatorioException("Título");
         }
@@ -88,6 +101,7 @@ public class Tarefa {
         this.titulo = titulo;
         this.descricao = descricao;
         this.prioridade = prioridade;
+		this.dataLimite = dataLimite;
     }
 	
 	public void adicionarCategoria(Categoria categoria) {
@@ -109,6 +123,8 @@ public class Tarefa {
             this.categorias.addAll(categoriasAtualizadas);
         }
     }
+    
+    public LocalDate getDataLimite() { return dataLimite; }
     
 	public Long getId() { return id; }
     public String getTitulo() { return titulo; }

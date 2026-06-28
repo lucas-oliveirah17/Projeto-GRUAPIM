@@ -1,8 +1,89 @@
 /* Container Principal */
 .dashboard-container {
   padding: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  transition: max-width 0.3s ease;
+}
+
+/* Header & Tab Navigation */
+.dashboard-header-brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dashboard-header-brand h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
+
+.dashboard-navigation {
+  display: flex;
+  background: #f1f5f9;
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+
+.nav-tab-btn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-tab-btn:hover {
+  color: #1e293b;
+}
+
+.nav-tab-btn.active {
+  background: white;
+  color: #6366f1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Tasks Tab Content Layout */
+.tasks-tab-content {
   max-width: 800px;
   margin: 0 auto;
+}
+
+/* Calendar & Diary Split Layout */
+.calendar-diario-tab-view {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .calendar-diario-tab-view {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calendar-left-pane {
+  min-width: 0; /* Prevents grid layout blowout */
+}
+
+.diario-right-pane {
+  min-width: 0;
+  height: 100%;
 }
 
 /* Formulários e Inputs */

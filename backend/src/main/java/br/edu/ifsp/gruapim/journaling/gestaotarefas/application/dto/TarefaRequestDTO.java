@@ -1,5 +1,6 @@
 package br.edu.ifsp.gruapim.journaling.gestaotarefas.application.dto;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import br.edu.ifsp.gruapim.journaling.gestaotarefas.domain.model.Prioridade;
@@ -15,5 +16,7 @@ public record TarefaRequestDTO(
     @NotNull(message = "A prioridade é obrigatória.")
     Prioridade prioridade,
     
-    Set<Long> categoriaIds
+    Set<Long> categoriaIds,
+    
+    LocalDate dataLimite
 ) {}
